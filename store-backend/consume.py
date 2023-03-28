@@ -1,4 +1,8 @@
 import requests
+from dotenv import load_dotenv
+import os
 
-response = requests.get('http://127.0.0.1:8000/gamestore')
+load_dotenv()
+
+response = os.environ.get('HOST', 'PORT')
 print(response.json())
