@@ -15,3 +15,4 @@ pip3 install -U "bcrypt<4.0.0"
 
 pip3 install -r requirements.txt
 
+python3 manage.py migrate
