@@ -2,9 +2,9 @@
 
 python3 -m pip install --upgrade pip
 
-pip install -U "bcrypt<4.0.0"
+pip3 install -U "bcrypt<4.0.0"
 
-pip install django
+pip3 install Django
 
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 
