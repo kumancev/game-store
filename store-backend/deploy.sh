@@ -1,18 +1,20 @@
 #!/bin/bash 
 
-sudo apt install python3-venv
+base_python_interpreter="/home/www/.python/bin/python3.8.2"
+project_domain="game-store-lhpt.onrender.com"
+project_path=`pwd`
 
-python3 -m pip install --upgrade pip
+`$base_python_interpreter -m venv env`
+source env/bin/activate
+pip install -U pip
+pip install -r requirements.txt
 
-python3 -m venv venv
+sed -i "s~$project_path~g" systemd/gunicorn.service
 
-source venv/bin/activate
+sudo ln -s $project_path/nginx/site.conf /etc/nginx/sites-enabled/
+sudo ln -s $project_path/systemd/gunicorn.service /etc/systemd/system/
 
-pip3 install django
-
-
-pip3 install -U "bcrypt<4.0.0"
-
-pip3 install -r requirements.txt
-
-python3 manage.py migrate
+sudo systemctl daemon-reload
+sudo systemctl start gunicorn
+sudo systemctl enable gunicorn
+sudo service nginx restart
